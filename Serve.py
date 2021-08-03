@@ -1,16 +1,12 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-from pydantic import BaseModel
 import mlflow
-from typing import Optional
-
-
-from starlette_exporter import PrometheusMiddleware, handle_metrics
 import prometheus_client as prom
 import time, os
-
-
+from typing import Optional
+from starlette_exporter import PrometheusMiddleware, handle_metrics
+from pydantic import BaseModel
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 # import image
 from Tools.image.Drift import driftImage
 from Tools.image.Logger import log_input_image
@@ -67,16 +63,6 @@ class Item(BaseModel):
 @app.get('/')
 async def index():
     return "Server Up"
-
-"""
-def count_pred_label(y,name,label_list=None):
-    class_y = np.argmax(y, axis=-1)
-    print(class_y)
-    for i in range(class_y.shape[0]):
-        if label_list != None:
-                my_class_prediction.labels(name, label_list[class_y[i]]).inc()
-        my_class_prediction.labels(name, "class "+ str(class_y[i])).inc()
-"""
 
 def count_pred_label(y,name,label_list=None):
     labels = np.argmax(y,axis=-1).reshape(-1)
