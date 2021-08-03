@@ -1,0 +1,10 @@
+numpy
+pandas
+uvicorn
+fastapi
+pydantic
+mlflow==1.17.0
+starlette_exporter
+alibi-detect==0.7.0
+transformers
+torch
